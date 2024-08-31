@@ -1,0 +1,10 @@
+<div>
+  <div class="row" *ngFor="let in of counter(7); let i = index">
+    <div class="col" *ngFor="let in of counter(7); let j = index">
+      <single-number-component
+        [value]="items[i * 7 + j].value"
+        [isCrossed]="items[i * 7 + j].isCrossed"
+      />
+    </div>
+  </div>
+</div>
