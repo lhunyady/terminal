@@ -1,6 +1,6 @@
 div {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,6 +11,10 @@ div {
   border: 2px solid rgba(253, 101, 133, 0.7);
   font-weight: 600;
   transition: 0.3s;
+  grid-area: inner-div;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .number:hover {
@@ -20,8 +24,17 @@ div {
 }
 
 .cross {
-  position: relative;
-  top: -23px;
-  border: 2px solid rgba(0, 0, 0, 0);
   font-weight: 600;
+  grid-area: inner-div;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  pointer-events: none;
+}
+
+.container {
+  display: grid;
+  margin: 2px;
+  grid-template-areas: "inner-div";
+  column-gap: 50px;
 }
