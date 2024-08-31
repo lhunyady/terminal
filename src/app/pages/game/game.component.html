@@ -1,1 +1,41 @@
-<p>game works!</p>
+<div class="play-area" nzJustify="center" nzAlign="middle" nz-row>
+  <div nz-col class="gutter-row" [nzSpan]="24">
+    <div
+      nz-row
+      nzJustify="center"
+      nzAlign="middle"
+      [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }"
+    >
+      <div *ngFor="let in of [0, 1, 2, 3]; let i = index">
+        <div nz-col class="gutter-row" [nzSpan]="6">
+          <number-selector />
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div
+      nz-row
+      nzJustify="center"
+      nzAlign="middle"
+      [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }"
+    >
+      <div nz-col class="gutter-row" [nzSpan]="4" (click)="showModal()">
+        <button class="glow-on-hover" type="button">Play!</button>
+      </div>
+    </div>
+  </div>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Selected Elements"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+  >
+    <ng-container *nzModalContent>
+      <div *ngFor="let in of messages; let i = index">
+        {{ in }}
+      </div></ng-container
+    >
+  </nz-modal>
+</div>
