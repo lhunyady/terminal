@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { SingleNumberComponent } from '../single.number/single.number.component';
+import {
+  ItemCrossEventProps,
+  SingleNumberComponent,
+} from '../single.number/single.number.component';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -17,5 +20,26 @@ export class NumberSelectorComponent {
 
   counter(i: number) {
     return new Array(i);
+  }
+
+  itemCross(event: ItemCrossEventProps) {
+    this.items[event.value - 1].isCrossed = event.isCrossed;
+  }
+
+  remove() {
+    this.items = this.items.map((item) => ({ ...item, isCrossed: false }));
+  }
+  randomize() {
+    this.remove();
+
+    const generatedNumbers: number[] = [];
+
+    while (generatedNumbers.length < 6) {
+      const key = Math.floor(Math.random() * 49);
+      if (!generatedNumbers.includes(key)) {
+        this.items[key].isCrossed = true;
+        generatedNumbers.push(key);
+      }
+    }
   }
 }
