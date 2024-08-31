@@ -1,0 +1,27 @@
+div {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.number {
+  color: rgba(253, 101, 133, 0.7);
+  border: 2px solid rgba(253, 101, 133, 0.7);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.number:hover {
+  color: rgba(253, 101, 133, 1);
+  border: 2px solid rgba(253, 101, 133, 1);
+  transition: 0.3s;
+}
+
+.cross {
+  position: relative;
+  top: -23px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-weight: 600;
+}
