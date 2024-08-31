@@ -4,12 +4,18 @@
   </div>
   <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <input
+      data-test-id="email-input"
       name="email"
       type="email"
       formControlName="email"
       placeholder="Email"
     />
-    <input type="password" formControlName="pass" placeholder="Password" />
-    <button>Submit</button>
+    <input
+      data-test-id="pass-input"
+      type="password"
+      formControlName="pass"
+      placeholder="Password"
+    />
+    <button data-test-id="submit-login">Submit</button>
   </form>
 </div>
