@@ -10,6 +10,14 @@
   background-color: rgba(253, 101, 133, 1);
 }
 
+.validation-error {
+  color: rgba(253, 101, 133, 1);
+  font-size: small;
+  padding-bottom: 12px;
+  padding-left: 4px;
+  font-weight: 700;
+}
+
 .login-card {
   display: flex;
   flex-direction: column;

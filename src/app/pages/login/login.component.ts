@@ -8,11 +8,12 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { getSHA256Hash as hash } from 'boring-webcrypto-sha256';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -35,6 +36,14 @@ export class LoginComponent {
     ]),
     pass: new FormControl('admin', [Validators.required]),
   });
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get pass() {
+    return this.loginForm.get('pass');
+  }
 
   async onSubmit() {
     const { valid, value: valueWithPlainPass } = this.loginForm;
