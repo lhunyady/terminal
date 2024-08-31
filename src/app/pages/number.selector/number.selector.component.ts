@@ -18,15 +18,16 @@ export class NumberSelectorComponent {
     isCrossed: false,
   }));
 
-  counter(i: number) {
-    return new Array(i);
-  }
-
   itemCross(event: ItemCrossEventProps) {
     this.items[event.value - 1].isCrossed = event.isCrossed;
   }
 
   remove() {
+    //We could create a map that would act as a lookup
+    //on where the isCrossed numbers are in the items array,
+    //but that would bring in additional complexity with synchronization
+    //since we only have 49 elements it is not a cpu intensive
+    //task to iterate through these and set every isCrossed to false.
     this.items = this.items.map((item) => ({ ...item, isCrossed: false }));
   }
   randomize() {
