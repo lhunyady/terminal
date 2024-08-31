@@ -10,12 +10,21 @@
       formControlName="email"
       placeholder="Email"
     />
+    <div class="validation-error" *ngIf="email?.errors?.['required']">
+      Email must not be empty
+    </div>
+    <div class="validation-error" *ngIf="email?.errors?.['email']">
+      Email must be properly formatted
+    </div>
     <input
       data-test-id="pass-input"
       type="password"
       formControlName="pass"
       placeholder="Password"
     />
+    <div class="validation-error" *ngIf="pass?.errors?.['required']">
+      Password must not be empty
+    </div>
     <button data-test-id="submit-login">Submit</button>
   </form>
 </div>
