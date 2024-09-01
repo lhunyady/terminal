@@ -1,22 +1,25 @@
-describe('Game tests', () => {
+describe("Game tests", () => {
   beforeEach(() => {
-    cy.visit('http://localhost:4200/').then(() => {
+    cy.visit("http://localhost:4200/").then(() => {
       cy.get('[data-test-id="email-input"]')
-        .type('a')
+        .type("a")
         .then(() => {
-          cy.contains('admin@admin.hu')
+          cy.contains("admin@admin.hu")
             .click()
             .then(() => {
               cy.get('[data-test-id="pass-input"]')
-                .clear()
+                .clear({ waitForAnimations: true })
                 .then(() => {
                   cy.get('[data-test-id="pass-input"]')
-                    .type('admin')
+                    .type("admin", { delay: 300 })
                     .then(() => {
+                      cy.wait(300);
                       cy.get('[data-test-id="submit-login"]')
-                        .click()
+                        .click({
+                          waitForAnimations: true,
+                        })
                         .then(() => {
-                          cy.location('pathname').should('eq', '/game');
+                          cy.location("pathname").should("eq", "/game");
                         });
                     });
                 });
@@ -25,27 +28,27 @@ describe('Game tests', () => {
     });
   });
 
-  it('Crossing works', () => {
+  it("Crossing works", () => {
     selectNOnPanelK(1, 1).then(() => {
-      cy.get('[data-test-id="single-number"]').contains('X');
+      cy.get('[data-test-id="single-number"]').contains("X");
     });
   });
 
-  it('Play should write proper values', () => {
+  it("Play should write proper values", () => {
     selectNOnPanelK(5, 2).then(() => {
       pressRandomOnPanelN(3).then(() => {
         selectNOnPanelK(7, 4).then(() => {
           cy.get('[data-test-id="play-btn"]')
             .click()
             .then(() => {
-              cy.contains('Panel 1: empty').should('be.visible');
-              cy.contains('Panel 2: Error: 1 mark(s) are missing').should(
-                'be.visible'
+              cy.contains("Panel 1: empty").should("be.visible");
+              cy.contains("Panel 2: Error: 1 mark(s) are missing").should(
+                "be.visible"
               );
-              cy.should('not.include.text', 'Panel 3: Error:');
-              cy.should('not.include.text', 'Panel 3: empty');
-              cy.contains('Panel 4: Error: Please remove 1 mark(s)').should(
-                'be.visible'
+              cy.should("not.include.text", "Panel 3: Error:");
+              cy.should("not.include.text", "Panel 3: empty");
+              cy.contains("Panel 4: Error: Please remove 1 mark(s)").should(
+                "be.visible"
               );
             });
         });
@@ -61,7 +64,7 @@ describe('Game tests', () => {
         cy.get('[data-test-id="random"]')
           .click()
           .then(() =>
-            cy.get('[data-test-id="cross"]').should('have.length', 6)
+            cy.get('[data-test-id="cross"]').should("have.length", 6)
           );
       });
   };
