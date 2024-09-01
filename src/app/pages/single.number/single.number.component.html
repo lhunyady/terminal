@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-test-id="single-number">
   <div (click)="toggle()" class="number">{{ _value }}</div>
-  <div *ngIf="_isCrossed" (click)="toggle()" class="cross">X</div>
+  <div *ngIf="_isCrossed" data-test-id="cross" (click)="toggle()" class="cross">X</div>
 </div>
