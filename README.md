@@ -1,18 +1,16 @@
-# Terminal
+## Running the backend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
+run the ./terminal-backend/src/main/java/com/example/terminal_backend?TerminalBackendApplication.java the service will start listening on port 8080
+IntelliJ provides great tooling to run these.
 
-## Development server
+## Running the backend tests
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+run the terminal-backend/src/test/java/com/example/terminal_backend/TerminalControllerTest.java
+IntelliJ provides great tooling to run these.
 
-## Code scaffolding
+## Build the ui
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build` to build the project.
 
 ## Running unit tests
 
@@ -20,8 +18,5 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
+Run the backend server.
 Run `npm run test` to execute the end-to-end tests in chrome.
-
-## Possible Improvements
-
-- Move the authorized users list to an external source
