@@ -5,10 +5,10 @@
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
       <nz-form-control nzValidatingTip="Validating..." [nzErrorTip]="emailErrorTpl">
-        <nz-select nzPrefixIcon="lock" class="alma" nzShowSearch nzAllowClear nzPlaceHolder="Select email"
+        <nz-select data-test-id="email-input" nzPrefixIcon="lock" nzShowSearch nzAllowClear nzPlaceHolder="Select email"
           formControlName="email" class="email-select login-form-button login-form-margin">
           <div *ngFor="let usr of users;">
-            <nz-option nzLabel="{{usr}}" nzValue="{{usr}}"></nz-option>
+            <nz-option data-test-id="select-option" nzLabel="{{usr}}" nzValue="{{usr}}"></nz-option>
           </div>
         </nz-select>
         <ng-template class="validation-error" #emailErrorTpl let-control>
@@ -22,7 +22,8 @@
     </nz-form-item>
     <nz-form-item>
       <nz-form-control [nzErrorTip]="passErrorTpl">
-        <input (change)="passChanged()" formControlName="pass" nz-input type="password" placeholder="Password" />
+        <input data-test-id="pass-input" (change)="passChanged()" formControlName="pass" nz-input type="password"
+          placeholder="Password" />
         <ng-template #passErrorTpl let-control>
           @if (control.errors?.['required']) {
           Please input your password!
@@ -36,7 +37,8 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item class="centered">
-      <button nz-button nzType="primary" [disabled]="!validateForm.valid" class="login-form-cta login-form-margin">
+      <button nz-button data-test-id="submit-login" nzType="primary" [disabled]="!validateForm.valid"
+        class="login-form-cta login-form-margin">
         Log in
       </button>
     </nz-form-item>
