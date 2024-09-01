@@ -5,11 +5,13 @@ import { NgFor } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [
+    HeaderComponent,
     NumberSelectorComponent,
     NzGridModule,
     NzButtonModule,
@@ -32,7 +34,6 @@ export class GameComponent {
   }
 
   calculateMessages() {
-    //TODO extract message using https://stackoverflow.com/questions/40165294/access-multiple-viewchildren-using-viewchild
     this.messages = this.numberSelectorComponent
       .toArray()
       .map((iter, idx) => `Panel ${idx + 1}: ${this.mapToMessage(iter)}`);
