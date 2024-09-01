@@ -7,12 +7,16 @@ import { of, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  userDb = new Map();
+  private userDb = new Map();
 
   constructor() {
     hash('admin').then((hashedPass) => {
       this.userDb.set('admin@admin.hu', hashedPass);
     });
+  }
+
+  users(): string[] {
+    return Array.from(this.userDb.keys());
   }
 
   login(data: User): Observable<boolean> {
@@ -34,7 +38,7 @@ export class AuthService {
     localStorage.removeItem('authUser');
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     return localStorage.getItem('authUser') !== null;
   }
 }

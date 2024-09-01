@@ -10,14 +10,6 @@
   background-color: rgba(253, 101, 133, 1);
 }
 
-.validation-error {
-  color: rgba(253, 101, 133, 1);
-  font-size: small;
-  padding-bottom: 12px;
-  padding-left: 4px;
-  font-weight: 700;
-}
-
 .login-card {
   display: flex;
   flex-direction: column;
@@ -28,29 +20,46 @@
   border-radius: 10px;
   width: 40%;
 }
-
-.login-card input {
-  margin: 5px 0;
-  width: 100%;
-  background-color: #e2e2e2;
-  border: none;
-  outline: none;
-  padding: 12px 20px;
-  border-radius: 4px;
+.divider {
+  padding-bottom: 7px;
 }
-
-.login-card button {
-  background-color: #4796ff;
-  color: #ffffff;
-  font-size: 16px;
-  outline: none;
-  border-radius: 5px;
-  border: none;
-  padding: 8px 15px;
-  width: 100%;
-}
-
 .card-title h1 {
   font-size: 26px;
   font-weight: bold;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form-cta {
+  border-radius: 13px;
+  width: 90px;
+  border-color: rgba(253, 101, 133, 0.7);
+  background: rgba(253, 101, 133, 0.7);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+.login-form-cta:hover:enabled {
+  border-color: rgba(253, 101, 133, 1);
+  background: rgba(253, 101, 133, 1);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+}
+
+.login-form-cta:disabled {
+  background: rgba(253, 101, 133, 0.2);
+  border-color: rgba(253, 101, 133, 0.2);
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+.email-select {
+  width: 100%;
+}
+
+.ant-form-item {
+  margin: 0px;
 }
