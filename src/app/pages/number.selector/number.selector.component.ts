@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   ItemCrossEventProps,
   SingleNumberComponent,
 } from '../single.number/single.number.component';
 import { NgFor } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+type GeneratedResponse = { numbers: number[] };
 
 @Component({
   selector: 'number-selector',
@@ -13,10 +16,16 @@ import { NgFor } from '@angular/common';
   styleUrl: './number.selector.component.css',
 })
 export class NumberSelectorComponent {
+  backgroundClass = '';
   items = Array.from(Array(49).keys()).map((iter) => ({
     value: iter + 1,
     isCrossed: false,
   }));
+
+  @Input()
+  set backgroundClassIdx(val: number) {
+    this.backgroundClass = `number-field-${val}`;
+  }
 
   itemCross(event: ItemCrossEventProps) {
     this.items[event.value - 1].isCrossed = event.isCrossed;
@@ -33,14 +42,13 @@ export class NumberSelectorComponent {
   randomize() {
     this.remove();
 
-    const generatedNumbers: number[] = [];
-
-    while (generatedNumbers.length < 6) {
-      const key = Math.floor(Math.random() * 49);
-      if (!generatedNumbers.includes(key)) {
-        this.items[key].isCrossed = true;
-        generatedNumbers.push(key);
-      }
-    }
+    this.http
+      //FIXME URL should atleast be in a properties file.
+      .get<GeneratedResponse>('http://localhost:8080/v1/generate')
+      .subscribe((res) => {
+        res.numbers.forEach((number) => (this.items[number].isCrossed = true));
+      });
   }
+
+  constructor(private http: HttpClient) {}
 }

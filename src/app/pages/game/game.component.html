@@ -4,7 +4,7 @@
     <div nz-row nzJustify="center" nzAlign="middle" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
       <div *ngFor="let in of [0, 1, 2, 3]; let i = index">
         <div nz-col class="gutter-row" [nzSpan]="4">
-          <number-selector />
+          <number-selector [backgroundClassIdx]="i+1" />
         </div>
       </div>
     </div>
