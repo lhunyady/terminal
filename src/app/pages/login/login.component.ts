@@ -1,12 +1,13 @@
-import { Component, NgModule, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-import { getSHA256Hash as hash } from 'boring-webcrypto-sha256';
+import * as CryptoJS from 'crypto-js';
 import { NgFor } from '@angular/common';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+
 import {
   FormControl,
   FormGroup,
@@ -33,6 +34,7 @@ import {
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  users: string[] = [];
   validateForm: FormGroup<{
     email: FormControl<string>;
     pass: FormControl<string>;
@@ -49,14 +51,18 @@ export class LoginComponent {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/game']);
     }
+
+    this.fetchUsers();
   }
 
   passChanged() {
     this.validateForm.controls['pass'].setErrors(null);
   }
 
-  getUsers(): string[] {
-    return this.authService.users();
+  fetchUsers() {
+    return this.authService
+      .users()
+      .subscribe((res) => (this.users = res.users));
   }
 
   async submitForm() {
@@ -64,21 +70,21 @@ export class LoginComponent {
       value: { pass, email },
     } = this.validateForm;
 
-    hash(pass ?? '').then((hashedPass) => {
-      const value = {
-        email: email ?? '',
-        pass: hashedPass,
-      };
+    const hashedPass = CryptoJS.SHA256(pass ?? '').toString();
 
-      this.authService.login(value).subscribe(() => {
-        if (this.authService.isLoggedIn()) {
-          this.router.navigate(['/game']);
-        } else {
-          this.validateForm.controls['pass'].setErrors({
-            wrongPassword: true,
-          });
-        }
-      });
+    const value = {
+      email: email ?? '',
+      pass: hashedPass,
+    };
+
+    this.authService.login(value).subscribe(() => {
+      if (this.authService.isLoggedIn()) {
+        this.router.navigate(['/game']);
+      } else {
+        this.validateForm.controls['pass'].setErrors({
+          wrongPassword: true,
+        });
+      }
     });
   }
 }

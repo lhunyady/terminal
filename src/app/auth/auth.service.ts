@@ -1,37 +1,36 @@
 import { Injectable } from '@angular/core';
 import { User } from './user.data';
-import { getSHA256Hash as hash } from 'boring-webcrypto-sha256';
 import { of, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+type AuthorizationResponse = { isAuthorized: boolean };
+type GetUsersResponse = { users: string[] };
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userDb = new Map();
+  constructor(private http: HttpClient) {}
 
-  constructor() {
-    hash('admin').then((hashedPass) => {
-      this.userDb.set('admin@admin.hu', hashedPass);
+  users() {
+    return this.http.get<GetUsersResponse>('http://localhost:8080/v1/users');
+  }
+
+  //Hide the response structure
+  login(data: User): Observable<Object> {
+    const { email } = data;
+
+    const loginRequest = this.http.post<AuthorizationResponse>(
+      'http://localhost:8080/v1/authorize',
+      data
+    );
+
+    loginRequest.subscribe((res) => {
+      if (res.isAuthorized) {
+        localStorage.setItem('authUser', email);
+      }
     });
-  }
 
-  users(): string[] {
-    return Array.from(this.userDb.keys());
-  }
-
-  login(data: User): Observable<boolean> {
-    const { email, pass } = data;
-
-    if (!this.userDb.has(email)) {
-      return of(false);
-    }
-
-    if (this.userDb.get(email) !== pass) {
-      return of(false);
-    }
-
-    localStorage.setItem('authUser', email);
-    return of(true);
+    return loginRequest;
   }
 
   logout(): void {

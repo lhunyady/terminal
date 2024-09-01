@@ -45,3 +45,16 @@
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+.number-field-1 {
+  background: url("/src/assets/1.svg");
+  fill: black;
+}
+.number-field-2 {
+  background: url("/src/assets/2.svg");
+}
+.number-field-3 {
+  background: url("/src/assets/3.svg");
+}
+.number-field-4 {
+  background: url("/src/assets/4.svg");
+}

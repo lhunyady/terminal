@@ -45,4 +45,21 @@ class TerminalControllerTest {
     assertNotNull(res, "Response is null!");
     assertTrue(res.isAuthorized(),"User %s is not authorized".formatted(testedUser));
   }
+
+
+
+  @Test
+  public void users_test() {
+    //ARRANGE
+    var url = "http://localhost:%s/v1/users".formatted(port);
+    var responseType = GetUsersResponse.class;
+
+    //ACT
+    var res = this.restTemplate.getForObject(url, responseType);
+
+    //ASSERT
+    assertNotNull(res, "Response is null!");
+    assertEquals(1, res.users().size(),"Expected number of Users: 1, actual: %s".formatted(res.users().size()));
+    assertTrue(res.users().contains("admin@admin.hu"), "Expected user is not present: %s".formatted(res.users()));
+  }
 }
